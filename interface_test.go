@@ -1,6 +1,8 @@
 package benchmark_go
 
-import "testing"
+import (
+	"testing"
+)
 
 /*
 给interface类型参数传递一个指针是一个好选择
@@ -19,6 +21,45 @@ type Person struct {
 	Name string
 	Age  int64
 	Data [128]int64
+}
+
+func Benchmark1(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Inter(&Person{}, 100)
+	}
+}
+
+func Benchmark12(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Inter(Person{}, 10)
+	}
+}
+
+func Benchmark21(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Inter2(Person{}, 10)
+	}
+}
+
+func Inter(a interface{}, i int) {
+	if i == 0 {
+		return
+	}
+
+	Inter(a, i-1)
+}
+
+func Inter2(a Person, i int) {
+	if i == 0 {
+		return
+	}
+
+	Inter3(a)
+	Inter(a, i-1)
+}
+
+func Inter3(a Person) {
+	a.Age++
 }
 
 func funcInterfaceToStruct(a interface{}) {
@@ -100,4 +141,3 @@ func BenchmarkPassInterfaceToInterface2(b *testing.B) {
 		funcInterfaceToStruct(p)
 	}
 }
-

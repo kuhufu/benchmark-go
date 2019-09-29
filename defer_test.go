@@ -6,12 +6,19 @@ import (
 )
 
 /*
-   goos: windows
-   goarch: amd64
-   BenchmarkDeferLock-4   	30000000	        46.6 ns/op
-   BenchmarkLock-4        	100000000	        15.4 ns/op
-   PASS
-   go version go1.12.7 windows/amd64
+	goos: windows
+	goarch: amd64
+	BenchmarkDeferLock-4   	30000000	        46.6 ns/op
+	BenchmarkLock-4        	100000000	        15.4 ns/op
+	PASS
+	go version go1.12.7 windows/amd64
+
+	goos: windows
+	goarch: amd64
+	BenchmarkDeferLock-4   	35351823	        33.4 ns/op
+	BenchmarkLock-4        	99995833	        12.0 ns/op
+	PASS
+	go version go1.13 windows/amd64
 */
 
 func BenchmarkDeferLock(b *testing.B) {
